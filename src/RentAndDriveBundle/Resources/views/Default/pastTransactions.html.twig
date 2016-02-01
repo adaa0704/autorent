@@ -1,0 +1,40 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="page-head">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Ostatnie transakcje</h2>
+        <h4>Twoje ostatnie transakcje</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<br>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa auta</th>
+                <th>Data zgłoszenia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td> {{ transaction.id }} </td>
+                    <td> {{ transaction.car.getName }} </td>
+                    <td> {{ transaction.rentRequestDate|date('d/m/Y') }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+{% endblock %}

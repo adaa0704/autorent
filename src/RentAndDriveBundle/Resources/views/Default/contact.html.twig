@@ -1,0 +1,93 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+{% block title %}Kontakt{% endblock %}
+
+{% block content %}
+
+<div class="page-head">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Napisz do nas</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="container">
+
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        <div class="alert alert-{{ label }}">
+            {{ flash }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<div class="row">
+
+<div class="col-md-7">
+{{ form_start(form) }}
+
+    <div class="form-group">
+            Imie
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+    </div>
+
+    <div class="form-group">
+        Email
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form-group">
+        Wiadomość
+        {{ form_widget(form.message) }}
+        {{ form_errors(form.message) }}
+    </div>
+
+    <button type="submit" class="btn btn-default">Wyślij</button>
+    <button type="reset" class="btn btn-default">Reset</button>
+
+{{ form_end(form) }}
+</div>
+
+<div class="col-md-5">
+      <div class="cwell">
+         <!-- Address section -->
+            <h4 class="title">Adres</h4>
+            <div class="address">
+                <address>
+                   <!-- Company name -->
+                   <strong>AutoRent</strong><br>
+                   <!-- Address -->
+                   Rakowicka 21<br>
+                   31-412 Kraków<br>
+                   <!-- Phone number -->
+                   <abbr title="Phone">Tel:</abbr> 48 987 654 321
+                </address>
+
+                <address>
+                   <!-- Email -->
+                   <a href="mailto:#">kontakt@autorent.pl</a>
+                </address>
+
+                <!-- Social media icons -->
+                <strong>Złap nas na:</strong>
+                <div class="social">
+                     <a href="#"><i class="fa fa-facebook facebook"></i></a>
+                     <a href="#"><i class="fa fa-twitter twitter"></i></a>
+                     <a href="#"><i class="fa fa-linkedin linkedin"></i></a>
+                     <a href="#"><i class="fa fa-google-plus google-plus"></i></a>
+                </div>
+            </div>
+            <hr />
+      </div>
+</div>
+
+</div><!-- ending row-->
+</div><!-- ending container -->
+
+{% endblock %}{# ending content #}

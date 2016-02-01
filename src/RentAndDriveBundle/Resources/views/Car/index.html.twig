@@ -1,0 +1,51 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Lista aut</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <br>
+
+    <div class="container">
+
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Ilość miejsc</th>
+                <th>Cena</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.seats }}</td>
+                <td>{{ entity.price }}</td>
+                <td>
+                <ul>
+                    <a href="{{ path('admin_cars_show', { 'id': entity.id }) }}">pokaż</a>
+                    <a href="{{ path('admin_cars_edit', { 'id': entity.id }) }}">edytuj</a>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div><!-- ending table-responsive -->
+
+        <a href="{{ path('admin_cars_new') }}" class="btn btn-success">Dodaj nowe auto</a>
+    </div><!-- ending container -->
+
+    {% endblock %}

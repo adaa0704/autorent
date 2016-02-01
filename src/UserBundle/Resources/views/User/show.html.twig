@@ -1,0 +1,68 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block content -%}
+
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Użytkownik: {{ entity.username }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+
+    <br>
+    
+    <div class="row">
+    <div class="col-sm-6">
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nick</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Aktywny</th>
+                <td>{% if entity.enabled %}
+                        tak
+                    {% else %}
+                    nie
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Ostatnie logowanie</th>
+                <td>{{entity.lastLogin|date('d-m-Y')}}</td>
+            </tr>
+            <tr>
+                <th>Rola</th>
+                <td>
+                    {% for role in entity.roles %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            admin
+                        {% endif %}
+                    {% endfor %}
+                    użytkownik
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+
+    <a class="btn btn-success" href="{{ path('admin_user') }}">Lista użytkowników</a>
+    </ul>
+    </div><!-- ending container -->
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>{{ entity.name }}</h2>
+            <h4>Informacje o aucie</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-6">
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Id auta</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Ilość miejsc:</th>
+                <td>{{ entity.seats }}</td>
+            </tr>
+            <tr>
+                <th>Cena</th>
+                <td>{{ entity.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div><!-- ending table-responsive -->
+    </div><!-- ending col-sm-6 -->
+    </div><!-- ending row -->
+
+    <div class="row">
+        {% for image in images %}
+			{% if image.getCarImageWeb is defined %}
+            		<div class="col-md-3">
+               	 		<img class="img-responsive" src="http://v-ie.uek.krakow.pl/~s180173/{{ image.getCarImageWeb}}" >
+            		</div>   
+			{% endif %}
+        {% endfor %}
+    </div>
+
+    <br>
+        
+    <a class="btn btn-danger" href="{{ path('admin_cars_edit', { 'id': entity.id }) }}">
+        Edytuj auto
+    </a>
+
+    <br><br>
+
+    <a class="btn btn-success" href="{{ path('admin_cars') }}">
+        Lista aut
+    </a>
+
+    </div><!-- ending container -->
+{% endblock %}

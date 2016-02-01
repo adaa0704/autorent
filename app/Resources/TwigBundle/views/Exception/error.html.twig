@@ -1,0 +1,43 @@
+{% extends 'RentAndDriveBundle::layout.html.twig'%}
+{% block title %}Error: {{ status_text }}{% endblock %}
+{% block content %}
+	<div class="page-head">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h2>Błąd ;(</h2>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="content error-page">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<div class="big-text">
+					{{ status_code }}
+				</div>
+			</div>
+
+			<div class="col-md-7 col-md-offset-1 col-sm-6">
+				<h1>Ooops <span class="color">!!!</span></h1>
+				<h3>Strona {{ status_text }}</h3>
+				<hr>
+
+				<p>Strona nie istnieje </p>
+				<hr>
+
+				<div class="horizontal-links">
+					<h5>Zobacz:</h5>
+					<a href="{{ path('homepage') }}">Strone główną</a>
+					<a href="{{ path('availableCars') }}">Dostępne auta</a>
+				</div>
+
+			</div>
+		</div><!-- end row -->
+	</div>
+	</div>
+	<br><br>
+
+{% endblock %}

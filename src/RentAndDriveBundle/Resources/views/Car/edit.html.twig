@@ -1,0 +1,57 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Edycja: {{ entity.name }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<br>
+
+    <div class="container">
+
+    <div class="row">
+	<div class="col-md-4">
+
+    {{ form_start(edit_form) }}
+    	<div class="form-group">
+            Nazwa
+            {{ form_widget(edit_form.name, { 'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(edit_form.name) }}
+	    </div>
+
+	    <div class="form-group">
+	        Ilosc miejsc: 
+	        {{ form_widget(edit_form.seats, { 'attr': {'class': 'form-control'}}) }}
+	        {{ form_errors(edit_form.seats) }}
+	    </div>
+
+	    <div class="form-group">
+	       	Cena:
+	        {{ form_widget(edit_form.price, { 'attr': {'class': 'form-control'}}) }}
+	        {{ form_errors(edit_form.price) }}
+	    </div>
+
+	    {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-default'}}) }}
+    {{ form_end(edit_form) }}
+
+	<br>
+    <hr>
+
+    </div><!-- ending col-md-5 -->
+    </div><!-- ending row -->
+
+	<br>
+
+
+	<a class="btn btn-warning" href="{{ path('admin_car_images_new_by_car', {'car_id' : entity.id } ) }}">Dodaj zdjęcia</a>
+
+    <a class="btn btn-success" href="{{ path('admin_cars') }}">Lista aut</a>
+	 
+	</div><!-- ending container -->
+{% endblock %}

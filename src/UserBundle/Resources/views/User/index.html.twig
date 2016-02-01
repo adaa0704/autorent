@@ -1,0 +1,61 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block content -%}
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Lista użytkowników</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+    <br>
+
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nick</th>
+                <th>Email</th>
+                <th>Aktywny</th>
+                <th>Ostatnie logowanie</th>
+                <th>Rola</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.username }}</td>
+                <td>{{ entity.email }}</td>
+                <td>
+                    {% if entity.enabled %}
+                        tak
+                    {% endif %}
+                </td>
+                <td>{{entity.lastLogin|date('d-m-Y')}}</td>
+                <td>
+                    {% for role in entity.roles %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            admin
+                        {% endif %}
+                    {% endfor %}
+                    użytkownik
+                </td>
+                <td>
+                    <a href="{{ path('admin_user_show', { 'id': entity.id }) }}">pokaż</a>
+                    <a href="{{ path('admin_user_delete', { 'id': entity.id }) }}">usuń</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div><!-- end table-responsive -->
+    </div><!-- closing container -->
+{% endblock %}{# ending content #}

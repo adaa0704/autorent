@@ -1,0 +1,50 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Zdjęcia aut</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+    <br>
+
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Zdjęcie</th>
+                <th>Id Auta</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.image }}</td>
+                <td>
+                    {% if entity.car %}
+                        {{ entity.car }}
+                    {% else %}
+                        null
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_car_images_show', { 'id': entity.id }) }}">pokaż</a>
+                    <a href="{{ path('admin_car_images_delete', { 'id': entity.id }) }}">usuń</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div><!-- ending container -->
+    {% endblock %}

@@ -1,0 +1,196 @@
+<?php
+
+namespace RentAndDriveBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollections;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * CarImage
+ *
+ * @ORM\Table(name="car_images")
+ * @ORM\Entity
+ */
+class CarImage
+{
+    /**
+     * @var Car
+     *
+     * @ORM\ManyToOne(targetEntity="Car", inversedBy="carImages")
+     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
+     */
+    private $car;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    private $image;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return CarImage
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set car
+     *
+     * @param \RentAndDriveBundle\Entity\Car $car
+     * @return CarImage
+     */
+    public function setCar(\RentAndDriveBundle\Entity\Car $car = null)
+    {
+        $this->car = $car;
+
+        return $this;
+    }
+
+    /**
+     * Get car
+     *
+     * @return \RentAndDriveBundle\Entity\Car
+     */
+    public function getCar()
+    {
+        return $this->car;
+    }
+
+    /**
+     * Get web path to upload directory
+     *
+     * @return string
+     * Relative path
+     */
+
+    protected function getUploadPath()
+    {
+        return 'uploads/car_images';
+    }
+
+    /**
+     * Get absolute path to upload directory
+     *
+     * @return string
+     * Absolute path
+     */
+    public function getUploadAbsolutePath()
+    {
+        return __DIR__ . '/../../../web/' . $this->getUploadPath();
+    }
+
+    /**
+     * Get web path to an image
+     *
+     * @return null|string
+     * Relative path.
+     */
+    public function getCarImageWeb()
+    {
+        return NULL === $this->getImage()
+            ? NULL
+            : $this->getUploadPath() . '/' . $this->getImage();
+    }
+
+    /**
+     * Get path on disk to an image
+     *
+     * @return null|string
+     * Absolute path.
+     */
+    public function getCarImageAbsolute()
+    {
+        return NULL === $this->getImage()
+            ? NULL
+            : $this->getUploadAbsolutePath() . '/' . $this->getImage();
+    }
+
+    /**
+     * @Assert\File(maxSize="10000000")
+     *
+     */
+    private $file;
+
+    /**
+     * Sets file
+     *
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = NULL )
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    /**
+     * Upload a car image.
+     */
+    public function upload()
+    {
+        // File property can be empty.
+        if( NULL === $this->getFile() )
+        {
+            return;
+        }
+
+        $filename = $this->getFile()->getClientOriginalName();
+
+        // Move the uploaded file to the target directory using original name.
+        $this->getFile()->move(
+            $this->getUploadAbsolutePath(),
+            $filename);
+
+        //set the image
+        $this->setImage($filename);
+
+        //Cleanup
+        $this->setFile();
+    }
+}

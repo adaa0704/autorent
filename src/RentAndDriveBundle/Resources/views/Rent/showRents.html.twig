@@ -1,0 +1,59 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <div class="page-head">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h2>Lista wypożyczeń</h2>
+	        <h4>Tabela wypożyczeń</h4>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+    <br>
+
+    <div class="container">
+
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Od</th>
+                <th>Do</th>
+                <th>Data zgłoszenia</th>
+                <th>Koszt wynajmu</th>
+                <th>Aktywne</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rent in rents %}
+                <tr>
+                <td>{{ rent.id }}</td>
+                <td>{{ rent.user.getUserName }}</td>
+                <td>{{ rent.car.getName }}</td>
+                <td>{{ rent.startingTime|date('d/m/Y') }}</td>
+                <td>{{ rent.endingTime|date('d/m/Y') }}</td>
+                <td>{{ rent.rentRequestDate|date('d/m/Y') }}</td>
+                <td>{{ rent.rentPrice }}</td>
+                <td>{% if rent.active %} Tak  {% else %} Nie {% endif %} </td>
+                <td>
+                    {% if rent.active %}
+                        <a href="{{ path('rentEnd', {'rent_id': rent.id} ) }}">Zakończ wynajem</a>
+                    {% endif %}
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div><!-- ending table responsive -->
+
+    </div><!-- ending container -->
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+	<div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Dodaj auto</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+	<div class="container">
+	<br>
+	<div class="row">
+	<div class="col-md-4">
+	{{ form_start(form) }}
+
+    <div class="form-group">
+            Nazwa
+            {{ form_widget(form.name, { 'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.name) }}
+    </div>
+
+    <div class="form-group">
+       	Ilosc miejsc
+        {{ form_widget(form.seats, { 'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.seats) }}
+    </div>
+
+    <div class="form-group">
+        Cena
+        {{ form_widget(form.price, { 'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.price) }}
+    </div>
+
+    <button type="submit" class="btn btn-default">Wyślij</button>
+    <button type="reset" class="btn btn-default">Reset</button>
+
+{{ form_end(form) }}
+</div><!-- ending col-md-4 -->
+</div><!-- ending row -->
+<br>
+
+        
+	<a href="{{ path('admin_cars') }}" class="btn btn-success">
+	    Lista aut
+	</a>
+		    
+
+	</div><!-- ending container -->
+{% endblock %}

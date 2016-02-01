@@ -1,0 +1,139 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/rentanddrive/css/bootstrap.css') }}">
+
+	<link rel="stylesheet" href="{{ asset('bundles/rentanddrive/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/rentanddrive/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/rentanddrive/css/blue.css') }}">
+	<link rel="stylesheet" href="{{ asset('style.css') }}">
+
+{% endblock %}
+
+{% block javascripts %}
+	<!-- Javascript files -->
+	<!-- jQuery -->
+	<script src="{{ asset('bundles/rentanddrive/js/jquery.js') }}"></script>
+	<!-- Bootstrap JS -->
+	<script src="{{ asset('bundles/rentanddrive/js/bootstrap.min.js') }}"></script>
+	<!-- Isotope, Pretty Photo JS -->
+	<script src="{{ asset('bundles/rentanddrive/js/jquery.isotope.js') }}"></script>
+	<script src="{{ asset('bundles/rentanddrive/js/jquery.prettyPhoto.js') }}"></script>
+	<!-- Filter for support page -->
+	<script src="{{ asset('bundles/rentanddrive/js/filter.js') }}"></script>
+	<!-- Respond JS for IE8 -->
+	<script src="{{ asset('bundles/rentanddrive/js/respond.min.js') }}"></script>
+	<!-- HTML5 Support for IE -->
+	<script src="{{ asset('bundles/rentanddrive/js/html5shiv.js') }}"></script>
+	<!-- Custom JS -->
+	<script src="{{ asset('bundles/rentanddrive/js/custom.js') }}"></script>
+
+	<script>
+	$( document ).ready(function() {
+		$('#footer').css('margin-top',$(document).height() - $('#page').height()- $('#footer').height() - 24);
+	});
+	</script>
+{% endblock %}
+
+
+{% block body %}
+
+<div id="page">
+
+<!-- HEADER -->
+{% block header %}
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-3">
+					  <div class="logo">
+						<h1><a href="{{ path('homepage') }}">AutoRent</a></h1>
+						<p class="meta">System wypożyczania samochodów</p>
+					  </div>
+					</div>
+					<div class="col-md-8 col-sm-9">
+						<!-- Navigation -->
+						<div class="navbar bs-docs-nav" role="banner">
+							<div class="navbar-header">
+								<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+									<span class="sr-only">Menu</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+
+							<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+								<ul class="nav navbar-nav navbar-right">
+
+								  <li><a href="{{ path('homepage') }}">Home</a></li>
+
+								  <li><a href="{{ path('availableCars')}}">Wypożycz auto</a></li>
+								  <li><a href="{{ path('contact') }}">Kontakt</a></li>
+
+									{% if app.user is not null and is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">MOJE KONTO: {{ app.user.username|capitalize }} <b class="caret"></b></a>
+											<ul class="dropdown-menu">
+												<li><a href="{{ path('pastTransactions') }}">Ostatnie transakcje</a></li>
+												<li><a href="{{ path('myRent') }}">Moje wypożyczenia</a></li>
+												{% if app.user is not null and is_granted("ROLE_ADMIN") %}
+													<li><a href="{{ path('admin_cars') }}"><span class="color">Zarządzaj samochodami</span></a></li>
+													<li><a href="{{ path('admin_user') }}"><span class="color">Zarządzaj użytkownikami</span></a></li>
+													<li><a href="{{ path('showRents') }}"><span class="color">Zarządzaj wypożyczeniami</span></a></li>
+												{% endif %}
+												<li><a href="{{ path('fos_user_security_logout')}}">Wyloguj</a></li>
+											</ul>
+										</li>
+
+									{% else %}
+
+										<li>
+										<a href="{{ path('fos_user_security_login') }}">Zaloguj</a></li>
+
+									{% endif %}
+
+								</ul>
+							</nav>
+						</div>
+						<!--/ Navigation end -->
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- Seperator -->
+
+		<!--/ Header ends -->
+{% endblock %}{# ending header#}
+
+<!-- CONTENT -->
+{% block content %}{% endblock %}
+ <br>
+</div><!-- ending page -->
+
+<!-- FOOTER -->
+{% block footer %}
+<footer id="footer">
+  <div class="container">
+	<div class="row">
+	  <div class="col-md-12">
+
+			<div class="row">
+
+
+			  <div class="col-md-12">
+				  <h5>AutoRent - system wypożyczania samochodów</h5>
+			  </div>
+
+			</div>
+			<!-- Copyright info -->
+			<p class="copy">Copyright &copy; 2016 | Adrianna Gałka </p></div>
+	</div>
+  <div class="clearfix"></div>
+  </div>
+</footer>
+{% endblock %}{# ending footer#}
+
+{% endblock %}{# ending body block #}

@@ -1,0 +1,33 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Moje wypożyczenia</h2>
+            <h4>Twoje aktywne wypożyczenia</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<br>
+
+    <div class="container">
+        {% if rent %}
+            <h3>{{ rent.car.name}} </h3>
+            <br>
+            <img class="img-responsive img-rounded" src="{{ image(rent.car.carImages[0].getCarImageWeb) }}" alt="" width="300" height="200"/>
+            <br>
+            <h4>Podstawowe informacje: </h4>
+			<h6>Cena wynajmu: {{ rent.rentPrice }} zł</h6>
+            {% if rent.active %}
+                <a class="btn btn-danger" href="{{ path('rentEnd', {'rent_id': rent.id} ) }}">Zakończ wynajem</a>
+            {% endif %}
+
+        {% else %}
+            <p>Nie masz akutalnie aktywnych wypożyczeń</p>
+        {% endif %}
+    </div>
+{% endblock %}

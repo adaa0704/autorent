@@ -1,0 +1,125 @@
+{% extends 'RentAndDriveBundle::layout.html.twig' %}
+
+{% block title %}Wypożycz auto {% endblock %}
+
+{% block content %}
+	<div class="page-head">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h2>Wypożycz auto</h2>
+	        <h4>Nasze samochody</h4>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Filter -->
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="row col-xs-offset-1">
+				{{ form_start(form)}}
+					<div class="col-sm-2">
+						<div class="checkbox">
+							{{ form_widget(form.show_only_available)}}
+							{{ form_label(form.show_only_available)}}
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="checkbox">
+							{{ form_widget(form.startingPrice, { 'attr': {'class': 'form-control'}}) }}
+							{{ form_label(form.startingPrice)}}
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="checkbox">
+							{{ form_widget(form.endingPrice, { 'attr': {'class': 'form-control'}}) }}
+							{{ form_label(form.endingPrice)}}
+						</div>
+					</div>
+					
+					<div class="col-sm-1">
+					<div class="checkbox">
+						<button type="submit" value="submit" class="btn btn-success">Szukaj</button>
+					</div>
+					</div>
+				{{ form_end(form)}}
+
+				</div><!-- ending row -->
+
+				<hr>
+				<br>
+		</div>
+	</div>
+
+
+	<!-- Items -->
+	<div class="items">
+		<div class="container">
+			<div class="row">
+
+				{# ITEMS #}
+				{% for car in cars %}
+
+
+					<div class="col-md-3 col-sm-4">
+					<div class="item">
+
+					{# item image #}
+					{% if image(car.carImages[0].getCarImageWeb) is not null %}
+					<div class="item-image">
+						<a href="#"><img class="img-rounded" src="https://v-ie.uek.krakow.pl/~s180173/{{ car.carImages[0].getCarImageWeb}}" alt="" width="190" height="160"/></a>
+					</div>
+					{% endif %}
+
+					<div class="item-details">
+
+					{# item name #}
+					<hr>
+					<h5><a href="#">{{ car.name|capitalize}}</a></h5>
+					<div class="clearfix"></div>
+
+
+
+					{# paragraph, more than 2 lines#}
+					<p>Miejsc: {{ car.seats }}</p>
+					<hr/>
+
+					{# item price #}
+					<div class="item-price pull-left">{{ car.price }} zł / dzień</div>
+
+					{# rent item #}
+					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+						<div class="button pull-right">
+							<a href="{{ path('rentCarById', {'car_id' : car.id} ) }}">Wynajmij</a>
+						</div>
+
+					{% endif %}
+
+					<div class="clearfix"></div>
+
+					</div>
+					</div>
+					</div>
+
+					{# ending item #}
+				{% endfor %}
+
+				{# if there are no cars#}
+				{% if cars is empty %}
+					Wszystkie auta zostały wynajęte...
+				{% endif %}
+
+			</div><!-- ending row -->
+		</div><!-- ending container -->
+	</div><!-- ending items -->
+
+
+
+	<br>
+
+{% endblock %}{# ending content #}

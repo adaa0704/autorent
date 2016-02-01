@@ -1,0 +1,47 @@
+{% extends "RentAndDriveBundle::layout.html.twig" %}
+
+{% block title %}Rent request{% endblock %}
+
+{% block content %}
+	<div class="page-head">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h2>Wynajmij auto</h2>
+	        <h4>Wypełnij dane</h4>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="container">
+	<br>
+	<div class="col-sm-6">
+		<h4>Twój wynajem</h4>
+		<br>
+		{% if success %}
+			<h4>{{ car.name }}</h4>
+				<img class="img-responsive" src="https://v-ie.uek.krakow.pl/~s180173/{{car.carImages[0].getCarImageWeb}}" alt="" width="300" height="200"/>
+			<hr>
+			<h4>Podstawowe informacje: </h4>
+			<h6>Ilość miejsc: {{ car.seats}}</h6>
+			<h6>Cena za dzień: {{ car.price }} zł</h6>
+			<hr>
+			{{ form_start(form) }}
+					{{ form_label(form.startingTime) }}
+					{{ form_widget(form.startingTime) }}
+					{{ form_label(form.endingTime) }}
+					{{ form_widget(form.endingTime) }}
+					<br>
+					<a href="{{ path('homepage') }}" class="btn btn-danger">Anuluj</a>
+					{{ form_widget(form.submit, { 'attr': {'class': 'btn btn-success'}}) }}
+			{{ form_end(form) }}
+
+		{% else %}
+			<p>Coś poszło nie tak, spróbuj ponownie później </p>
+		{% endif %}
+	</div>
+	</div>
+	<br>
+
+{% endblock %}{# ending content block #}

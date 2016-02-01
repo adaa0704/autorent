@@ -1,0 +1,106 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% block content %}
+<!-- Page heading starts -->
+
+<div class="page-head">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Zarejestruj się</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page Heading ends -->
+
+<!-- Page content starts -->
+<div class="content">
+
+	<div class="container">
+		<br />
+    	<div class="row">
+    		<div class="col-md-6">
+            	<!-- Some content -->
+            	<h2 class="title">Zarejestruj się <span class="color">dzisiaj</span> !</h2>
+
+            </div>
+            <!-- Login form -->
+            <div class="col-md-6">
+            	<div class="formy well">
+                <!-- Title -->
+                <h3 class="title">Zarejestruj się</h3>
+				<p>&nbsp;</p>
+                <div class="form">
+
+					{% block fos_user_content %}
+
+					<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal" role="form">
+
+					{{ form_errors(form) }}
+
+					<div class="form-group">
+						<div class="col-lg-2 control-label">
+							Nick
+						</div>
+						
+						<div class="col-lg-8">
+							{{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': 'Nick'|trans}}) }}
+						</div>
+						{{ form_errors(form.username) }}
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-2 control-label">
+							Email
+						</div>
+						
+						<div class="col-lg-8">
+							{{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'|trans}}) }}
+						</div>
+						{{ form_errors(form.email, { 'attr': {'class': 'bsdf'}}) }}
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-2 control-label">
+							Hasło
+						</div>
+						
+						<div class="col-lg-8">
+							{{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'Hasło'|trans}}) }}
+						</div>
+						{{ form_errors(form.plainPassword.first) }}
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-2 control-label">
+							Powtórz hasło
+						</div>
+						
+						<div class="col-lg-8">
+							{{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'Powtórz hasło'|trans}}) }}
+						</div>
+					</div>
+
+					{{ form_rest(form) }}
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-8">
+					        <input type="submit" class="btn btn-default" value="Zarejestruj się" />
+					        <button type="reset" class="btn btn-default">Reset</button>
+					    </div>
+					</div>
+				</form>
+					{% endblock fos_user_content %}
+					<h5>Mam już konto!</h5>
+                      <!-- Register link -->
+                             Masz już konto? <a href="{{ path('fos_user_security_login') }}">Zaloguj się</a>
+			</div>	
+		</div>
+	</div>
+	</div>
+	</div>
+</div>
+
+<br>
+{% endblock %}{# ending content block #}
